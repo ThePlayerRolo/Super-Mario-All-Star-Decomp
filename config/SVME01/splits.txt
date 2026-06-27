@@ -1,0 +1,39 @@
+Sections:
+	.init       type:code align:4
+	extab       type:rodata align:32
+	extabindex  type:rodata align:32
+	.text       type:code align:32
+	.ctors      type:rodata align:16
+	.dtors      type:rodata align:32
+	.rodata     type:rodata align:32
+	.data       type:data align:16
+	.sdata      type:data align:16
+	.sbss       type:bss align:32
+	.sdata2     type:rodata align:8
+	.sbss2      type:bss align:16
+	.bss        type:bss align:64
+
+Runtime.PPCEABI.H/global_destructor_chain.c:
+	.text       start:0x8001683C end:0x8001689C
+	.sbss       start:0x80164930 end:0x80164938
+
+Runtime.PPCEABI.H/__init_cpp_exceptions.cpp:
+	.text       start:0x80017460 end:0x800174D0
+	.ctors      start:0x80117A20 end:0x80117A24 rename:.ctors$10
+	.dtors      start:0x80117A60 end:0x80117A64 rename:.dtors$10
+	.dtors      start:0x80117A64 end:0x80117A68 rename:.dtors$15
+	.sdata      start:0x80164248 end:0x80164250
+
+revolution/NAND/NANDOpenClose.c:
+	.text       start:0x800A32B0 end:0x800A37C0
+
+revolution/NAND/NANDCore.c:
+	.text       start:0x800A37C0 end:0x800A4640
+	.rodata     start:0x80131200 end:0x80131348
+	.data       start:0x8015B2A0 end:0x8015B3F0
+	.sdata      start:0x801645B0 end:0x801645D8
+	.sbss       start:0x80165120 end:0x80165128
+	.bss        start:0x801F2A80 end:0x801F2AC0
+
+revolution/SC/scapi.c:
+	.text       start:0x800A6B80 end:0x800A7030

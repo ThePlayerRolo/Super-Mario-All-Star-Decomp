@@ -29,7 +29,7 @@ from tools.project import (
 # Game versions
 DEFAULT_VERSION = 0
 VERSIONS = [
-    "GAMEID",  # 0
+    "SVME01",  # 0
 ]
 
 parser = argparse.ArgumentParser()
@@ -208,11 +208,25 @@ cflags_base = [
     "-RTTI off",
     "-fp_contract on",
     "-str reuse",
-    "-multibyte",  # For Wii compilers, replace with `-enc SJIS`
+    "-enc SJIS",
     "-i include",
+    "-i libs",
+    "-i libs/Runtime.PPCEABI.H/include",
+    "-i libs/revolution/include",
+    "-i libs/MSL/MSL_C/MSL_Common/Include/",
+    "-i libs/MSL/MSL_C/MSL_Common_Embedded/Include/",
+    "-i libs/MSL/MSL_C++/MSL_Common/Include/",
+    "-i libs/revolution/include/revolution/BTE/include/",
+    "-i libs/revolution/include/revolution/BTE/stack/include/",
+    "-i libs/revolution/include/revolution/BTE/stack/btm/",
+    "-i libs/revolution/include/revolution/BTE/bta/include/",
+    "-i libs/revolution/include/revolution/BTE/bta/sys/",
+    "-i libs/revolution/include/revolution/BTE/gki/common/",
+    "-i libs/revolution/include/revolution/BTE/gki/platform/",
     f"-i build/{config.version}/include",
     f"-DBUILD_VERSION={version_num}",
     f"-DVERSION_{config.version}",
+    "-DREVOLUTION",
 ]
 
 # Debug flags
@@ -247,16 +261,21 @@ cflags_rel = [
     "-sdata2 0",
 ]
 
-config.linker_version = "GC/1.3.2"
+cflags_revolution = [
+    *cflags_base,
+    "-i libs/revolution/include/revolution/"
+]
+config.linker_version = "Wii/1.3"
 
 
 # Helper function for Dolphin libraries
-def DolphinLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
+def RevolutionLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
     return {
         "lib": lib_name,
-        "mw_version": "GC/1.2.5n",
-        "cflags": cflags_base,
+        "mw_version": "Wii/1.3",
+        "cflags": cflags_revolution,
         "progress_category": "sdk",
+        "src_dir": "libs/revolution/src",
         "objects": objects,
     }
 
@@ -285,11 +304,20 @@ def MatchingFor(*versions):
 config.warn_missing_config = True
 config.warn_missing_source = False
 config.libs = [
+
+    RevolutionLib("nand", [
+        Object(Matching, "revolution/NAND/NANDOpenClose.c"),
+        Object(NonMatching, "revolution/NAND/NANDCore.c"),
+    ]),
+    RevolutionLib("sc", [
+        Object(NonMatching, "revolution/SC/scapi.c"),
+    ]),
     {
         "lib": "Runtime.PPCEABI.H",
         "mw_version": config.linker_version,
         "cflags": cflags_runtime,
         "progress_category": "sdk",  # str | List[str]
+        "src_dir": "libs/Runtime.PPCEABI.H/src",
         "objects": [
             Object(NonMatching, "Runtime.PPCEABI.H/global_destructor_chain.c"),
             Object(NonMatching, "Runtime.PPCEABI.H/__init_cpp_exceptions.cpp"),

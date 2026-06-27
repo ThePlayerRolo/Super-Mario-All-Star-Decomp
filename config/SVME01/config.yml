@@ -1,0 +1,7 @@
+object_base: orig/SVME01
+object: sys/main.dol
+hash: f79fe10aa47feb1cb0665aa5cbb9bbeda3c2ba51
+symbols: config/SVME01/symbols.txt
+splits: config/SVME01/splits.txt
+ldscript_template: config/SVME01/ldscript.tpl
+mw_comment_version: 14
