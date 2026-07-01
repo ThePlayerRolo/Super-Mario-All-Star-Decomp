@@ -35,5 +35,10 @@ revolution/NAND/NANDCore.c:
 	.sbss       start:0x80165120 end:0x80165128
 	.bss        start:0x801F2A80 end:0x801F2AC0
 
+revolution/SC/scsystem.c:
+	.text       start:0x800A51F0 end:0x800A6B80
+	.sbss       start:0x80165138 end:0x80165150
+	.bss        start:0x801F2DC0 end:0x801FAF60
+
 revolution/SC/scapi.c:
 	.text       start:0x800A6B80 end:0x800A7030

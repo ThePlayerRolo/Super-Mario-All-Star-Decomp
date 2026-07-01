@@ -171,7 +171,7 @@ void SCInit(void) {
 
     Initialized = TRUE;
 
-    SetBgJobStatus(SC_STATUS_BUSY);
+    BgJobStatus = SC_STATUS_BUSY;
     OSRestoreInterrupts(enabled);
 
     OSRegisterVersion(__SCVersion);
@@ -185,7 +185,7 @@ void SCInit(void) {
         SCReloadConfFileAsync(__SCGetConfBuf(), __SCGetConfBufSize(), NULL) !=
             NAND_RESULT_OK) {
 
-        SetBgJobStatus(SC_STATUS_FATAL);
+        BgJobStatus = SC_STATUS_FATAL;
     }
 }
 

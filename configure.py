@@ -263,7 +263,8 @@ cflags_rel = [
 
 cflags_revolution = [
     *cflags_base,
-    "-i libs/revolution/include/revolution/"
+    "-i libs/revolution/include/revolution/",
+    "-lang c",
 ]
 config.linker_version = "Wii/1.3"
 
@@ -310,6 +311,7 @@ config.libs = [
         Object(NonMatching, "revolution/NAND/NANDCore.c"),
     ]),
     RevolutionLib("sc", [
+        Object(NonMatching, "revolution/SC/scsystem.c"),
         Object(NonMatching, "revolution/SC/scapi.c"),
     ]),
     {

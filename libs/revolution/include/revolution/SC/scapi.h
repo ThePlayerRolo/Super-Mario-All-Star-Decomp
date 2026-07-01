@@ -2,7 +2,9 @@
 #define RVL_SDK_SC_SCAPI_H
 #include <types.h>
 
-#include <revolution/BTE.h>
+//If you include all of BTE scratches take FOREVER
+#include <revolution/BTE/stack/include/bt_types.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
